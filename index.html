@@ -12,9 +12,14 @@
     <input type="text" name="Age" />
     <input type="text" name="Salary" />
     <input type="text" name="DepartmentId" />
-    <input type="button" onclick="add()" value="Add"/>
+    <input type="button" onclick="add()" value="Add" />
+    <input type="button" onclick="update()" value="Update" />
+    <input type="button" onclick="delet()" value="Delete" />
+
+
 
     <script>
+
         function add() {
             var obj = {
                 Id: $("input[name='Id']").val(),
@@ -29,7 +34,7 @@
                 url: "http://127.0.0.1:82/api/employee",
                 method: "POST",
                 dataType: "Application/Json",
-                data:obj,
+                data: obj,
                 success: function (d) {
                     alert("success");
                 },
@@ -40,6 +45,55 @@
             });
 
         }
+
+
+        ////////////////////////
+        function update() {
+            var obj = {
+                Id: $("input[name='Id']").val(),
+                Name: $("input[name='Name']").val(),
+                Age: $("input[name='Age']").val(),
+                Salary: $("input[name='Salary']").val(),
+                DepartmentId: $("input[name='DepartmentId']").val()
+
+            };
+            //alert(JSON.stringify(obj));
+
+            $.ajax({
+                url: "http://127.0.0.1:82/api/employee/" + obj.Id, /*$("input[name='Id']").val(),*/
+                method: "PUT",
+                dataType: "Application/Json",
+                data: obj,
+                success: function (d) {
+                    alert("success");
+                },
+                error: function (e) {
+                    alert(e.status);
+                }
+
+            });
+        }
+            ////////////////////
+
+        function delet() {
+         
+            //alert(JSON.stringify(obj));
+            $.ajax({
+                url: "http://127.0.0.1:82/api/employee/"+$("input[name='Id']").val(),
+                method: "DELETE",
+                //dataType: "Application/Json",
+                success: function (d) {
+                    alert("success");
+                },
+                error: function (e) {
+                    alert(e.status);
+                }
+
+            });
+
+        }
+
+        
     </script>
 
     <!--<script>
